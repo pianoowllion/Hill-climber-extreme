@@ -1,0 +1,6 @@
+{
+  "name": "Hill Climber Extreme",
+  "description": "A physics-based hill climbing car game using React, Matter.js, and Tailwind CSS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
