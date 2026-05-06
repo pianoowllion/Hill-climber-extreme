@@ -8,4 +8,4 @@ directory = "./dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "hill-climber-db"
-database_id = "PASTE_YOUR_D1_DATABASE_ID_HERE"
+database_id = "8b3a1c45-ebf9-4191-9941-26eeead2edc5"
