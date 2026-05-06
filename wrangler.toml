@@ -2,6 +2,9 @@ name = "hill-climber-extreme"
 compatibility_date = "2024-05-06"
 pages_build_output_dir = "dist"
 
+[assets]
+directory = "./dist"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "hill-climber-db"
