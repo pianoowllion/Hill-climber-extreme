@@ -4,8 +4,3 @@ pages_build_output_dir = "dist"
 
 [assets]
 directory = "./dist"
-
-[[d1_databases]]
-binding = "DB"
-database_name = "hill-climber-db"
-database_id = "8b3a1c45-ebf9-4191-9941-26eeead2edc5"

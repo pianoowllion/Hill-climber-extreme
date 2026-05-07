@@ -1,12 +1,20 @@
 
+import { createClient } from '@supabase/supabase-js';
+
 export async function onRequestGet(context) {
   const { env } = context;
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+
   try {
-    const { results } = await env.DB.prepare(
-      "SELECT playerName, score, timestamp FROM leaderboard ORDER BY score DESC LIMIT 10"
-    ).all();
+    const { data, error } = await supabase
+      .from('leaderboard')
+      .select('playerName, score, timestamp')
+      .order('score', { ascending: false })
+      .limit(10);
     
-    return new Response(JSON.stringify(results), {
+    if (error) throw error;
+
+    return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
@@ -19,6 +27,8 @@ export async function onRequestGet(context) {
 
 export async function onRequestPost(context) {
   const { env, request } = context;
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+
   try {
     const { playerName, score } = await request.json();
     
@@ -29,9 +39,13 @@ export async function onRequestPost(context) {
       });
     }
 
-    await env.DB.prepare(
-      "INSERT INTO leaderboard (playerName, score, timestamp) VALUES (?, ?, ?)"
-    ).bind(playerName, score, Date.now()).run();
+    const { error } = await supabase
+      .from('leaderboard')
+      .insert([
+        { playerName, score, timestamp: new Date().toISOString() }
+      ]);
+
+    if (error) throw error;
 
     return new Response(JSON.stringify({ success: true }), {
       status: 201,
